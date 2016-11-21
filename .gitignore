@@ -1,0 +1,4 @@
+node_modules/
+.meteor
+passwors.json
+.DS_Store
