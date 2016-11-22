@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default () => {
+const NewField = (props) => {
     return (
         <div className="form-group row">
             <div className="col-md-2">
@@ -15,3 +15,4 @@ export default () => {
         </div>
     );
 };
+export default NewField;

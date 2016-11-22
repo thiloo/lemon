@@ -28,7 +28,7 @@ Meteor.methods({
     'fields.insert': function(templateId) {
         return Fields.insert({
             templateId: templateId,
-            owner: this.userId,
+            ownerId: this.userId,
             title: '',
             type: '',
             mandatory: false
