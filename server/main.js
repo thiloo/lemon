@@ -1,6 +1,8 @@
 // Only runing on server
 import { Meteor } from 'meteor/meteor';
-import { Templates, Fields } from '../imports/collections/templates';
+import { Templates } from '../imports/collections/templates';
+import { Fields } from '../imports/collections/fields';
+
 
 Meteor.startup(() => {
     Meteor.publish('templates', function() {

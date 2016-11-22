@@ -6,7 +6,9 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import App from './components/app';
 import ProductOverview from './components/getProductInfo/product_main';
 import ProductList from './components/getProductInfo/product_list';
-import { Templates, Fields } from '../imports/collections/templates';
+import { Fields } from '../imports/collections/fields';
+import { Templates } from '../imports/collections/templates';
+
 import AddTemplate from './components/addTemplate/add_template';
 
 

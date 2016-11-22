@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Fields } from '../../../imports/collections/templates';
+import { Fields } from '../../../imports/collections/fields';
 import NewField from './template_field';
 
 class AdditionalFields extends Component {
     render() {
-        console.log(this.props.fields);
         return (
             <div>
                 <div className="form-group col-md-8">

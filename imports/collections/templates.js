@@ -7,34 +7,32 @@ Meteor.methods({
             title: '',
             description: '',
             ownerId: this.userId,
-            quantity: {},
-            descriptionFields: []
+            quantity: '',
+            units: '',
+            additionalFields: []
         });
     },
 
-    'templates.update': function(template, field, update) {
-        let setModifier = { $set: {} };
-        setModifier.$set[field] = update;
-        return Templates.update(template._id, setModifier);
+    'templates.update.title': function(template, update) {
+        return Templates.update(template._id, { $set: { title: update }});
     },
 
-
-    'templates.push': function(template, field, update) {
-        let setModifier = { $push: {} };
-        setModifier.$push[field] = update;
-        return Templates.update(template._id, setModifier);
+    'templates.update.description': function(template, update) {
+        return Templates.update(template._id, { $set: { description: update }});
     },
 
-    'fields.insert': function(templateId) {
-        return Fields.insert({
-            templateId: templateId,
-            ownerId: this.userId,
-            title: '',
-            type: '',
-            mandatory: false
-        });
+    'templates.update.quantity': function(template, update) {
+        return Templates.update(template._id, { $set: { quantity: update }});
+    },
+
+    'templates.update.units': function(template, update) {
+        return Templates.update(template._id, { $set: { units: update }});
+    },
+
+    'templates.push.additionalFields': function(template, update) {
+        return Templates.update(template, { $push: { additionalFields: update }});
     }
+
 });
 
 export const Templates = new Mongo.Collection('templates');
-export const Fields = new Mongo.Collection('fields');
