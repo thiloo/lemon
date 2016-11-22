@@ -1,5 +1,9 @@
+// Only runing on server
 import { Meteor } from 'meteor/meteor';
+import { Templates } from '../imports/collections/templates';
 
 Meteor.startup(() => {
-  // code to run on server at startup
+    Meteor.publish('templates', function() {
+        return Templates.find({ ownerId: this.userId });
+    });
 });

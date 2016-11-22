@@ -1,0 +1,23 @@
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.thumbnail {
+    width: 300px;
+}
+
+#login-buttons {
+    margin: 18px;
+    font-size: 14px;
+}
+
+.productInfoWrapper {
+    height: 200px;
+    border: 1px black solid;
+}
+
+a:hover {
+    cursor: pointer;
+}

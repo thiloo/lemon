@@ -1,22 +1,27 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-import './main.html';
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
-});
+import App from './components/app';
+import ProductOverview from './components/getProductInfo/product_main';
+import ProductList from './components/getProductInfo/product_list';
+import { Templates } from '../imports/collections/templates';
+import AddTemplate from './components/addTemplate/add_template';
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-});
 
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
+// After Meteor loads, render this to the DOM
+const routes = (
+    <Router history={browserHistory}>
+        <Route path="/" component={App}>
+            <IndexRoute component={ProductList} />
+            <Route path="products/:productId" component={ProductOverview} />
+            <Route path="templates/:templateId" component={AddTemplate} />
+        </Route>
+    </Router>
+);
+
+Meteor.startup(() => {
+    // React renders call
+    ReactDOM.render(routes, document.querySelector('.render-target'));
 });
