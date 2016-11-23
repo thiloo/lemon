@@ -13,6 +13,7 @@ class TemplateDropdown extends Component {
                         {this.props.templates.map((template) => {
                             return (
                                 <TemplateDropdownItem
+                                product={this.props.product}
                                 onTemplateSelect={this.props.onTemplateSelect}
                                 template={template}
                                 key={template._id} />

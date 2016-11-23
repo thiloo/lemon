@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import ProductTemplateField from './product_template_field';
-import { createContainer } from 'meteor/react-meteor-data';
 import { Fields } from '../../../imports/collections/fields';
 
 class ProductTemplate extends Component {
     renderFields() {
-        return this.props.fields.map((field) => {
+        return this.props.product.template.additionalFields.map((field) => {
             return ( <ProductTemplateField
+                product={this.props.product}
                 field={field}
                 key={field._id} />
             );
@@ -14,10 +14,10 @@ class ProductTemplate extends Component {
     }
 
     render() {
-        if(this.props.template) {
+        if(this.props.product) {
             return (
                 <div>
-                    <h3>{this.props.template.title}</h3>
+                    <h3>{this.props.product.template.title}</h3>
                     {this.renderFields()}
                 </div>
             );
@@ -27,12 +27,4 @@ class ProductTemplate extends Component {
     }
 }
 
-export default createContainer((props) => {
-    if(props.template) {
-        Meteor.subscribe('fields');
-        let templateId = props.template._id;
-        return { fields: Fields.find({ templateId }).fetch()};
-    } else {
-        return { fields: [] };
-    }
-}, ProductTemplate);
+export default ProductTemplate;

@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 
 class NewField extends Component {
     onTitleChange(event) {
-        Meteor.call('fields.update.title', this.props.field, event.target.value);
+        const { template, field } = this.props;
+        Meteor.call('templates.update.field.title', template, field, event.target.value);
     }
 
     onTypeChange(event) {
-        Meteor.call('fields.update.type', this.props.field, event.target.value);
+        const { template, field } = this.props;
+        Meteor.call('templates.update.field.type', template, field, event.target.value);
+    }
+
+    onMandatoryChange(event) {
+        const { template, field } = this.props;
+        Meteor.call('templates.update.field.mandatory', template, field, event.target.checked);
     }
 
     render() {
@@ -25,10 +32,13 @@ class NewField extends Component {
                         className="form-control col-md-2" placeholder="Field Type (Dropdown later)" />
                 </div>
                 <div className="checkbox enabled cold-md-2">
-                    <label><input type="checkbox" /> Mandatory</label>
+                    <label><input
+                        onChange={this.onMandatoryChange.bind(this)}
+                        type="checkbox" /> Mandatory</label>
                 </div>
             </div>
         );
     }
-};
+}
+
 export default NewField;

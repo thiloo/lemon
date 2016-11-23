@@ -9,7 +9,22 @@ class AddTemplate extends Component {
     addField(event) {
         event.preventDefault();
 
-        Meteor.call('fields.insert', this.props.template);
+        function guidGenerator() {
+            var S4 = function() {
+                return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+            };
+            return (S4()+S4()+S4()+S4());
+        }
+
+        const field = {
+            _id: guidGenerator(),
+            title: '',
+            type: '',
+            mandatory: false,
+            content: ''
+        };
+
+        Meteor.call('templates.push.additionalFields', this.props.template, field);
     }
 
     render() {

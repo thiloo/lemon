@@ -7,6 +7,7 @@ import App from './components/app';
 import ProductOverview from './components/getProductInfo/product_main';
 import ProductList from './components/getProductInfo/product_list';
 import NewProduct from './components/addProduct/new_product_main';
+import SendProduct from './components/sendProduct/send_product';
 import { Fields } from '../imports/collections/fields';
 import { Templates } from '../imports/collections/templates';
 import { Products } from '../imports/collections/products';
@@ -21,6 +22,7 @@ const routes = (
             <IndexRoute component={ProductList} />
             <Route path="products/:productId" component={ProductOverview} />
             <Route path="products/add/:productId" component={NewProduct} />
+            <Route path="products/send/:productId" component={SendProduct} />
             <Route path="templates/:templateId" component={AddTemplate} />
         </Route>
     </Router>

@@ -5,13 +5,24 @@ import { Fields } from '../../../imports/collections/fields';
 import NewField from './template_field';
 
 class AdditionalFields extends Component {
+    renderAdditionalField() {
+        if(this.props.template) {
+            return this.props.template.additionalFields.map((field) => {
+                return (
+                    <NewField
+                        template={this.props.template}
+                        field={field}
+                        key={field._id} />
+                );
+            });
+        }
+    }
+
     render() {
         return (
             <div>
                 <div className="form-group col-md-8">
-                    {this.props.fields.map((field) => {
-                        return <NewField field={field} key={field._id}/>;
-                    })}
+                    { this.renderAdditionalField() }
                 </div>
             </div>
         );
