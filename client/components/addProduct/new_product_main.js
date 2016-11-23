@@ -6,8 +6,6 @@ import { Products } from '../../../imports/collections/products';
 import { Templates } from '../../../imports/collections/templates';
 import { Fields } from '../../../imports/collections/fields';
 
-
-
 class NewProduct extends Component {
     constructor(props) {
         super(props);
@@ -27,6 +25,12 @@ class NewProduct extends Component {
         }
     }
 
+    setProductTemplate() {
+        if(this.state.selectedTemplate) {
+            Meteor.call('products.update.template', this.props.params.productId, this.state.selectedTemplate);
+        }
+    }
+
     render() {
         return (
             <div>
@@ -39,22 +43,24 @@ class NewProduct extends Component {
                             this.setState({
                                 selectedTemplate
                             });
+
                         });
                     }}
+                    onClick={this.setProductTemplate()}
                     templates={this.props.templates} />
+
                 <ProductTemplate
-                    template={this.state.selectedTemplate}
-                    fields={this.props.fields} />
+                    template={this.state.selectedTemplate} />
             </div>
         );
     }
 }
 
-export default createContainer(() => {
+export default createContainer((props) => {
     Meteor.subscribe('templates');
-    Meteor.subscribe('fields');
+    Meteor.subscribe('products');
     return {
         templates: Templates.find({}).fetch(),
-        fields: Fields.find({}).fetch()
+        product: Products.find({ _id: props.params.productId }).fetch()
     };
 }, NewProduct);

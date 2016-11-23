@@ -5,8 +5,13 @@ Meteor.methods({
         return Products.insert({
             createdAt: new Date(),
             ownerId: this.userId,
-            active: false
+            active: false,
+            template: ''
         });
+    },
+
+    'products.update.template': function(product, template) {
+        return Products.update(product, { $set: { template }});
     }
 });
 

@@ -12,13 +12,13 @@ class ProductList extends Component {
         return (
             <div>
                 <div className="product-list">
-                    {this.props.templates.map(template =>
+                    {this.props.products.map(product =>
                         <ProductDetail
-                            // key={product._id}
-                            // product={product}
+                            key={product._id}
+                            product={product}
 
-                            key={template._id}
-                            template={template}
+                            // key={template._id}
+                            // template={template}
                         />)}
                 </div>
             </div>
@@ -28,10 +28,10 @@ class ProductList extends Component {
 
 export default createContainer(() => {
     // set up subscription
-    // Meteor.subscribe('products', PER_PAGE);
+    Meteor.subscribe('products', PER_PAGE);
     Meteor.subscribe('templates');
     //return as an object sent to ProductList as props
-    // return { products: Products.find({}).fetch() };
-    return { templates: Templates.find({}).fetch() }
+    return { products: Products.find({}).fetch() };
+    // return { templates: Templates.find({}).fetch() }
 
 }, ProductList);

@@ -19,7 +19,6 @@ class AdditionalFields extends Component {
 }
 
 export default createContainer((props)=> {
-    console.log(props.template);
     if(props.template) {
         let templateId = props.template._id;
         Meteor.subscribe('fields');

@@ -9,7 +9,7 @@ class AddTemplate extends Component {
     addField(event) {
         event.preventDefault();
 
-        Meteor.call('fields.insert', this.props.template, (error, field) => console.log(field));
+        Meteor.call('fields.insert', this.props.template);
     }
 
     render() {

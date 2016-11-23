@@ -5,9 +5,11 @@ import { Fields } from '../../../imports/collections/fields';
 
 class ProductTemplate extends Component {
     renderFields() {
-        console.log('working');
         return this.props.fields.map((field) => {
-            return <ProductTemplateField field={field} key={field._id} />;
+            return ( <ProductTemplateField
+                field={field}
+                key={field._id} />
+            );
         });
     }
 

@@ -16,6 +16,5 @@ class ProductsMain extends Component {
 export default createContainer((props) => {
     const { productId } = props.params;
     Meteor.subscribe('products');
-
     return { product: Products.findOne(productId) };
 }, ProductsMain);
