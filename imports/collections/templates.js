@@ -30,7 +30,7 @@ Meteor.methods({
     },
 
     'templates.push.additionalFields': function(template, update) {
-        return Templates.update(template, { $push: { additionalFields: update }});
+        return Templates.update(template._id, { $push: { additionalFields: update }});
     }
 
 });

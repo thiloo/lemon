@@ -2,7 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Templates } from '../imports/collections/templates';
 import { Fields } from '../imports/collections/fields';
-
+import { Products } from '../imports/collections/products';
 
 Meteor.startup(() => {
     Meteor.publish('templates', function() {
@@ -10,5 +10,8 @@ Meteor.startup(() => {
     });
     Meteor.publish('fields', function() {
         return Fields.find({ ownerId: this.userId });
+    });
+    Meteor.publish('products', function() {
+        return Products.find({ ownerId: this.userId });
     });
 });

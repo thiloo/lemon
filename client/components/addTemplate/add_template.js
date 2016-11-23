@@ -8,13 +8,8 @@ import { Templates } from '../../../imports/collections/templates';
 class AddTemplate extends Component {
     addField(event) {
         event.preventDefault();
-        return (
-            Meteor.call('fields.insert', this.props.template, (error, field) => {
-                if(error) {
-                    console.log(error);
-                }
-            })
-        );
+
+        Meteor.call('fields.insert', this.props.template, (error, field) => console.log(field));
     }
 
     render() {
@@ -22,10 +17,10 @@ class AddTemplate extends Component {
             <div className="container">
                 <form className="form-horizontal" role="form">
                     <RequiredTemplateFields template={this.props.template}/>
-                    <div className="col-md-8">
-                        <button className="btn btn-secondary" onClick={ this.addField.bind(this) }>Add New Field</button>
-                    </div>
                     <AdditionalFields template={this.props.template} />
+                    <div className="col-md-8">
+                        <button className="btn btn-primary" onClick={ this.addField.bind(this) }>Add New Field</button>
+                    </div>
                 </form>
             </div>
         );

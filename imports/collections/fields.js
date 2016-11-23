@@ -1,9 +1,10 @@
 import { Mongo } from 'meteor/mongo';
 
 Meteor.methods({
-    'fields.insert': function(templateId) {
+    'fields.insert': function(template) {
+        console.log(template._id);
         return Fields.insert({
-            templateId: templateId,
+            templateId: template._id,
             ownerId: this.userId,
             title: '',
             type: '',

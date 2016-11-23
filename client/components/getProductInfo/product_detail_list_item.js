@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const ProductDetail = ({product}) => {
-    const { _id, title, units} = product;
+const ProductDetail = ({template}) => {
+    const { _id, title, units} = template;
     const url = `/products/${_id}`;
     return (
         <Link to={url}>

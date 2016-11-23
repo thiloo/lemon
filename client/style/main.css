@@ -21,3 +21,12 @@
 a:hover {
     cursor: pointer;
 }
+
+.template-dropdown {
+    max-height: 200px;
+    overflow: scroll;
+}
+
+.bring-one-line {
+    display: inline-block;
+}
