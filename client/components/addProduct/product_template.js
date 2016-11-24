@@ -14,7 +14,7 @@ class ProductTemplate extends Component {
     }
 
     render() {
-        if(this.props.product) {
+        if(this.props.product && this.props.product.template) {
             return (
                 <div>
                     <h3>{this.props.product.template.title}</h3>

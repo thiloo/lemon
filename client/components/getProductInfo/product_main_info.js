@@ -13,10 +13,10 @@ class ProductInfo extends Component {
 
     render() {
         if(this.props.product) {
-            const { title, description, additionalFields } = this.props.product.template;
+            const { title, description } = this.props.product.template;
             return (
                 <div className="row col-md-offest-1 col-md-10 productInfoWrapper">
-                    <div className="jumbotron">
+                    <div className="">
                         <h1>{title}</h1>
                         <p>{description}</p>
                         {this.renderAdditionalFields()}

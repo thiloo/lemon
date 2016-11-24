@@ -35,6 +35,9 @@ class Header extends Component {
                     <li>
                         <a href="#" onClick={this.onAddProductClick.bind(this)}>Add Product</a>
                     </li>
+                    <li>
+                        <a>Your ID: {Meteor.userId()}</a>
+                    </li>
                 </ul>
             </nav>
         );
