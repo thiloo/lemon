@@ -47,7 +47,6 @@ class SendProduct extends Component {
                         className="btn btn-primary">Transfer Ownership</button>
                 </div>
             </div>
-
         );
     }
 }
