@@ -8,14 +8,14 @@ class ProductTemplateField extends Component {
 
     render() {
         return (
-            <div>
-                <div className="form-group col-md-6">
-                    <span className="input-group-addon">{this.props.field.title}</span>
+            <div className="row">
+                <div className="form-group col-md-8 col-sm-offset-2">
+                    <label className="form-group-addon">{this.props.field.title}</label>
                     <input
                         value={this.props.field.content}
                         onChange={this.onInputChange.bind(this)}
                         className="form-control"
-                        type="text" placeholder="{}" />
+                        type="text" placeholder={`Please add ${this.props.field.title}`} />
                 </div>
             </div>
         );

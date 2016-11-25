@@ -18,20 +18,20 @@ class NewField extends Component {
 
     render() {
         return (
-            <div className="form-group row">
-                <div className="col-md-5">
+            <div className="row">
+                <div className="form-group col-sm-5">
                     <input
                         onChange={this.onTitleChange.bind(this)}
                         value={this.props.field.title}
-                        className="form-control col-md-2" placeholder="Field Title" />
+                        className="form-control" placeholder="Field Title" />
                 </div>
-                <div className="col-md-5">
+                <div className="form-group col-sm-5">
                     <input
                         onChange={this.onTypeChange.bind(this)}
                         value={this.props.field.type}
-                        className="form-control col-md-2" placeholder="Field Type (Dropdown later)" />
+                        className="form-control" placeholder="Field Type (Dropdown later)" />
                 </div>
-                <div className="checkbox enabled cold-md-2">
+                <div className="form-group col-sm-2">
                     <label><input
                         onChange={this.onMandatoryChange.bind(this)}
                         type="checkbox" /> Mandatory</label>

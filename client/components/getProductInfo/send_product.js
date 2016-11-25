@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 class SendProduct extends Component {
     onAddressChange(event) {
@@ -22,16 +23,18 @@ class SendProduct extends Component {
     }
 
     transferOwnership() {
+
         Meteor.call('products.update.ownerId', this.props.product);
     }
 
     render() {
+        const url = '/';
         return (
             <div>
                 <div>
                     <input
                         onChange={this.onAddressChange.bind(this)}
-                        value={this.inputValueOnChange()}
+                        value={this.props.product.transaction.toAddress}
                         className="form-control"
                         placeholder="send to address" />
                     <input
@@ -42,9 +45,12 @@ class SendProduct extends Component {
 
                 </div>
                 <div>
-                    <button
-                        onClick={this.transferOwnership.bind(this)}
-                        className="btn btn-primary">Transfer Ownership</button>
+                    <Link to={url}>
+                        <button
+                            onClick={this.transferOwnership.bind(this)}
+                            className="btn btn-primary">Transfer Ownership
+                        </button>
+                    </Link>
                 </div>
             </div>
         );

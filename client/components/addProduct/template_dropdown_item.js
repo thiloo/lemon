@@ -7,7 +7,7 @@ class TemplateDropdownItem extends Component {
 
     render() {
         return (
-            <div>
+            <div className="">
                 <li className='list-group-item'
                     onClick={() => {
                         this.templateSet.bind(this);

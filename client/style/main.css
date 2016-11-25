@@ -30,3 +30,13 @@ a:hover {
 .bring-one-line {
     display: inline-block;
 }
+
+.input-spacing-y {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input-spacing-x {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}

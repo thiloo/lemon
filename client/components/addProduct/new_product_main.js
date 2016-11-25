@@ -43,7 +43,7 @@ class NewProduct extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <TemplateDropdown
                     onTemplateSelect={selectedTemplateId => {
                         this.setState({

@@ -5,7 +5,8 @@ import { Fields } from '../../../imports/collections/fields';
 class ProductTemplate extends Component {
     renderFields() {
         return this.props.product.template.additionalFields.map((field) => {
-            return ( <ProductTemplateField
+            return (
+                <ProductTemplateField
                 product={this.props.product}
                 field={field}
                 key={field._id} />
@@ -16,8 +17,10 @@ class ProductTemplate extends Component {
     render() {
         if(this.props.product && this.props.product.template) {
             return (
-                <div>
-                    <h3>{this.props.product.template.title}</h3>
+                <div className="">
+                    <div className="col-sm-4 col-sm-offset-4 text-center">
+                        <h3>{this.props.product.template.title}</h3>
+                    </div>
                     {this.renderFields()}
                 </div>
             );

@@ -4,9 +4,9 @@ import TemplateDropdownItem from './template_dropdown_item';
 class TemplateDropdown extends Component {
     render() {
         return (
-            <div className="dropdown-container template-dropdown">
+            <div className="dropdown-container template-dropdown col-sm-8 col-sm-offset-2">
                 <div className="dropdown-display">
-                    <span> hello </span>
+                    <h4 className="text-center"> Please choose your template </h4>
                 </div>
                 <div className="dropdown-list">
                     <ul className="list-group">

@@ -19,23 +19,24 @@ class RequiredTemplateFields extends Component {
 
     render() {
         if (!this.props.template) {return <div>Loading...</div>;}
+
         return (
-            <div>
-                <div className="form-group col-md-6">
-                    <span className="input-group-addon">Title</span>
+            <div className="col-sm-8 col-sm-offset-2">
+                <div className="row input-group input-spacing-y">
+                    <span className="input-group-addon">Template Title</span>
                     <input
                         onChange={this.onTitleChange.bind(this)}
                         value={this.props.template.title}
                         className="form-control" type="text" placeholder="Title" />
                 </div>
-                <div className="form-group col-md-6">
+                <div className="row input-group input-spacing-y">
                     <span className="input-group-addon">Description</span>
                     <input
                         onChange={this.onDescriptionChange.bind(this)}
                         value={this.props.template.description}
                         className="form-control" type="text" placeholder="Description" />
                 </div>
-                <div className="form-group col-md-6">
+                <div className="row input-group input-spacing-y">
                     <span className="input-group-addon">Quantity</span>
                     <input
                         onChange={this.onQuantityChange.bind(this)}

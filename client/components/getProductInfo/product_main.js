@@ -13,7 +13,7 @@ class ProductsMain extends Component {
         };
     }
 
-    renderSendProduct(event) {
+    renderSendProduct() {
         if(this.state.clickedSendProduct == false) {
             this.setState({ clickedSendProduct: true });
         } else {

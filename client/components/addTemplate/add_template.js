@@ -31,9 +31,9 @@ class AddTemplate extends Component {
         return (
             <div className="container">
                 <form className="form-horizontal" role="form">
-                    <RequiredTemplateFields template={this.props.template}/>
+                    <RequiredTemplateFields template={this.props.template} />
                     <AdditionalFields template={this.props.template} />
-                    <div className="col-md-8">
+                    <div className="col-sm-4 col-sm-offset-4">
                         <button className="btn btn-primary" onClick={ this.addField.bind(this) }>Add New Field</button>
                     </div>
                 </form>

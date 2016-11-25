@@ -21,7 +21,7 @@ class AdditionalFields extends Component {
     render() {
         return (
             <div>
-                <div className="form-group col-md-8">
+                <div className="col-sm-8 col-sm-offset-2">
                     { this.renderAdditionalField() }
                 </div>
             </div>
