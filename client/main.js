@@ -11,7 +11,9 @@ import SendProduct from './components/sendProduct/send_product';
 import { Fields } from '../imports/collections/fields';
 import { Templates } from '../imports/collections/templates';
 import { Products } from '../imports/collections/products';
+import { Keys } from '../imports/collections/keys';
 import ChainInteraction from './components/chainStuff/chain_interaction';
+import WalletMain from './components/wallet/wallet_main';
 
 import AddTemplate from './components/addTemplate/add_template';
 
@@ -25,7 +27,7 @@ const routes = (
             <Route path="products/add/:productId" component={NewProduct} />
             <Route path="products/send/:productId" component={SendProduct} />
             <Route path="templates/:templateId" component={AddTemplate} />
-            <Route path="chain" component={ChainInteraction} />
+            <Route path="wallet" component={WalletMain} />
         </Route>
     </Router>
 );
