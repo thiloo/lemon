@@ -9,7 +9,9 @@ Meteor.methods({
         });
     },
 
-
+    'keys.update.wallet': function(_id, serialized) {
+        return Keys.update(_id, { $set: { keyStore: serialized }});
+    }
 });
 
 export const Keys = new Mongo.Collection('keys');

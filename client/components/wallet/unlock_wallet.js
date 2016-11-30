@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
 import { Keys } from '../../../imports/collections/keys';
 import lightwallet from 'eth-lightwallet';
+import SingleWallet from './single_wallet';
 
 class UnlockWallet extends Component {
     constructor(props) {
@@ -9,37 +9,34 @@ class UnlockWallet extends Component {
 
         this.state= {
             password: '',
-            key: ''
         };
-    }
-
-    setPassword(event) {
-        this.setState({ password: event.target.value });
     }
 
     unlockWallet(event) {
         const id = event.target.parentElement.id;
-        const { keyStore } = this.props.wallets.find((wallet) => wallet._id == id);
+        const { keyStore, _id } = this.props.wallets.find((wallet) => wallet._id == id);
         const ks = lightwallet.keystore.deserialize(keyStore);
 
-        ks.keyFromPassword(this.state.password, (err, key) => this.setState({ key }));
+        this.props.changeKeyStoreState(ks);
+        this.props.changeWalletId(_id);
+        ks.keyFromPassword(this.state.password, (err, key) => this.props.changePwDerivedKeyState(key));
+    }
+
+    onPasswordInput(password) {
+        if(password) {
+            this.setState({ password });
+        }
     }
 
     renderWallets() {
         return this.props.wallets.map((wallet) => {
             return (
-                <div
-                    id={wallet._id}
-                    key={wallet._id}>
-                    {wallet.walletName}
-                    <input
-                        onChange={this.setPassword.bind(this)}
-                        value={this.state.password}
-                        type="password"
-                        placeholder="Please insert your password for this wallet" />
-                    <button
-                        onClick={this.unlockWallet.bind(this)}>Unlock</button>
-                </div>
+                <SingleWallet
+                    onPasswordInput={this.onPasswordInput.bind(this)}
+                    unlockWallet={this.unlockWallet.bind(this)}
+                    key={wallet._id}
+                    state={this.state}
+                    wallet={wallet} />
             );
         });
     }
@@ -53,7 +50,4 @@ class UnlockWallet extends Component {
     }
 }
 
-export default createContainer(() => {
-    Meteor.subscribe('keys');
-    return { wallets: Keys.find({}).fetch() };
-}, UnlockWallet);
+export default UnlockWallet;
