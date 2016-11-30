@@ -35,10 +35,7 @@ class NewTransaction extends Component {
 
     sendTransaction(tx) {
         const { pwDerivedKey, keyStore } = this.props.keys;
-        console.log(pwDerivedKey, keyStore, tx, this.state.fromAddress);
         const signed = lightwallet.signing.signTx(keyStore, pwDerivedKey, tx, this.state.fromAddress);
-        console.log(signed);
-        const obj = { "tx": signed };
         Meteor.call('eth.decode.newTransaction', signed, (error, value) => console.log(error, value));
     }
 

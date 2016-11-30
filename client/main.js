@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-
-
 import App from './components/app';
 import ProductOverview from './components/getProductInfo/product_main';
 import ProductList from './components/getProductInfo/product_list';
@@ -14,7 +12,6 @@ import { Products } from '../imports/collections/products';
 import { Keys } from '../imports/collections/keys';
 import ChainInteraction from './components/chainStuff/chain_interaction';
 import WalletMain from './components/wallet/wallet_main';
-
 import AddTemplate from './components/addTemplate/add_template';
 
 
