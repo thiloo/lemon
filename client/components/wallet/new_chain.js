@@ -20,9 +20,8 @@ class NewChain extends Component {
     }
 
     generateCommand(keys) {
-        const accounts = keys.map(key => ` --account="0x${key}, 100000000000"`);
+        const accounts = keys.map(key => ` --account="0x${key}, 50000000000000000000"`);
         this.setState({ command: `testrpc ${accounts}`});
-        console.log(accounts);
     }
 
     render() {

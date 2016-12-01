@@ -10,6 +10,7 @@ import { Fields } from '../imports/collections/fields';
 import { Templates } from '../imports/collections/templates';
 import { Products } from '../imports/collections/products';
 import { Keys } from '../imports/collections/keys';
+import { Contracts } from '../imports/collections/contracts';
 import ChainInteraction from './components/chainStuff/chain_interaction';
 import WalletMain from './components/wallet/wallet_main';
 import AddTemplate from './components/addTemplate/add_template';

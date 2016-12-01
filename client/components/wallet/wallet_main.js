@@ -5,8 +5,10 @@ import NewAddress from './new_address';
 import NewTransaction from './new_transaction';
 import NewChain from './new_chain';
 import NewContract from './new_contract';
+import ContractInteraction from './contract_interaction';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Keys} from '../../../imports/collections/keys';
+import {Contracts} from '../../../imports/collections/contracts';
 import HookedWeb3Provider from 'hooked-web3-provider';
 
 
@@ -58,10 +60,13 @@ class WalletMain extends Component {
                     onAddressSelect={this.onAddressSelect.bind(this)}
                     keys={this.state}/>
                 <NewTransaction keys={this.state}/>
-                <NewContract selectedAddress={this.state.selectedAddress}/>
+                <NewContract
+                    walletId={this.state.walletId}
+                    selectedAddress={this.state.selectedAddress}/>
                 <NewChain
                     ks={this.state.keyStore}
                     pw={this.state.pwDerivedKey} />
+                <ContractInteraction contracts={this.props.contracts} />
                 {/* <NewWallet /> */}
             </div>
         );
@@ -70,5 +75,9 @@ class WalletMain extends Component {
 
 export default createContainer(() => {
     Meteor.subscribe('keys');
-    return {wallets: Keys.find({}).fetch()};
+    Meteor.subscribe('contracts');
+    return {
+        wallets: Keys.find({}).fetch(),
+        contracts: Contracts.find({}).fetch()
+    };
 }, WalletMain);

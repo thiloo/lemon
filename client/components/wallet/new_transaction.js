@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import lightwallet from 'eth-lightwallet';
 
 class NewTransaction extends Component {
     constructor(props) {
@@ -12,31 +11,16 @@ class NewTransaction extends Component {
         };
     }
 
-    prepareTransaction() {
+    sendTransaction() {
         const { fromAddress, toAddress, amount } = this.state;
         let txObject = {
+            from: fromAddress,
             to: toAddress,
             gasLimit: 21000,
             gasPrice: 41000000000,
-            value: amount,
-            nonce: '0x00'
+            value: parseFloat(amount)
         };
-
-        const tx = lightwallet.txutils.valueTx(txObject);
-        this.sendTransaction(tx);
-        // Meteor.call('eth.prepare.newTransaction', fromAddress, toAddress, amount, (error, value) => {
-        //     if(error) console.log(11, error);
-        //
-        //     if(value) {
-        //         this.sendTransaction(value);
-        //     }
-        // });
-    }
-
-    sendTransaction(tx) {
-        const { pwDerivedKey, keyStore } = this.props.keys;
-        const signed = lightwallet.signing.signTx(keyStore, pwDerivedKey, tx, this.state.fromAddress);
-        Meteor.call('eth.decode.newTransaction', signed, (error, value) => console.log(error, value));
+        web3.eth.sendTransaction(txObject, (error, value) => console.log(error, value));
     }
 
     render() {
@@ -52,7 +36,7 @@ class NewTransaction extends Component {
                 Amount: <input
                     onChange={event => this.setState({ amount: event.target.value })}
                     placeholder="Amount" />
-                <button onClick={this.prepareTransaction.bind(this)}>Send Transaction</button>
+                <button onClick={this.sendTransaction.bind(this)}>Send Transaction</button>
             </div>
         );
     }

@@ -25,12 +25,6 @@ class NewAddress extends Component {
     checkAddressBalance(event) {
         const address = event.target.parentElement.id;
         web3.eth.getBalance(address, (error, value) => console.log(error, value));
-        // Meteor.call('eth.get.addressBalance', address, (error, balance) => console.log(error, balance));
-    }
-
-    topupAddress(event) {
-        const address = event.target.parentElement.id;
-        Meteor.call('eth.get.testCoins', address, (error, balance) => console.log(error, balance));
     }
 
     selectAddress(event) {
@@ -45,7 +39,6 @@ class NewAddress extends Component {
                 <div id={address} key={address}>
                     {address}
                     <button onClick={this.checkAddressBalance.bind(this)}>Check Balance</button>
-                    <button onClick={this.topupAddress.bind(this)}>Topup Balance</button>
                     <button onClick={this.selectAddress.bind(this)}>Select Addresss</button>
                 </div>
             ));

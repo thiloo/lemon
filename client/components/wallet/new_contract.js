@@ -16,19 +16,24 @@ class NewContract extends Component {
     setUpContract(compiled) {
         // all variables have to be hard coded upon initializing contract.
         // needs to be dynamic, variables should be based on product input by user
-        const contract = web3.eth.contract(compiled.info.abiDefinition);
+        const abi = compiled.info.abiDefinition;
+        const contract = web3.eth.contract(abi);
         const pName = 'Beer';
         const pDescription = 'Test Beer description';
         const pDate = 222;
         const pCount = 44;
         const pUnit = 'bottles';
-        contract.new(pName, pDescription, pDate, pCount, pUnit, {from: this.props.selectedAddress, data: compiled.code, gas: 4000000}, (error, value) => console.log(error, value));
+        contract.new(pName, pDescription, pDate, pCount, pUnit, {from: this.props.selectedAddress, data: compiled.code, gas: 4000000}, (error, value) => {
+            if(!error) {
+                Meteor.call('contracts.save.newContract', this.props.walletId, pName, abi, value.address);
+            }
+        });
     }
 
     render() {
         return (
             <div>
-                <button onClick={this.compileContract.bind(this)}>Compile Contract</button>
+                <button onClick={this.compileContract.bind(this)}>Deploy Contract</button>
             </div>
         );
     }
