@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ProductTemplateField from './product_template_field';
-import { Fields } from '../../../imports/collections/fields';
 
 class ProductTemplate extends Component {
     renderFields() {
-        return this.props.product.template.additionalFields.map((field) => {
+        const fields = this.props.product.template.additionalFields.filter(field => field != null);
+        return fields.map((field) => {
             return (
                 <ProductTemplateField
                 product={this.props.product}

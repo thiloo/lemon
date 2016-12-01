@@ -46,6 +46,15 @@ Meteor.methods({
     'templates.update.field.mandatory': function(template, field, update) {
         return Templates.update({_id: template._id, "additionalFields._id": field._id },
             { $set: { "additionalFields.$.mandatory": update }});
+    },
+
+    'templates.remove.field': function(template, field) {
+        return Templates.update({_id: template._id, "additionalFields._id": field._id },
+            { $unset: { "additionalFields.$": "" }});
+    },
+
+    'templates.delete.template': function(template) {
+        return Templates.remove({_id: template._id});
     }
 
 });

@@ -7,7 +7,8 @@ import NewField from './template_field';
 class AdditionalFields extends Component {
     renderAdditionalField() {
         if(this.props.template) {
-            return this.props.template.additionalFields.map((field) => {
+            const fields = this.props.template.additionalFields.filter(field => field != null);
+            return fields.map((field) => {
                 return (
                     <NewField
                         template={this.props.template}
@@ -21,7 +22,7 @@ class AdditionalFields extends Component {
     render() {
         return (
             <div>
-                <div className="col-sm-8 col-sm-offset-2">
+                <div className="col-sm-9 col-sm-offset-2">
                     { this.renderAdditionalField() }
                 </div>
             </div>

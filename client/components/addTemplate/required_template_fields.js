@@ -27,26 +27,26 @@ class RequiredTemplateFields extends Component {
                     <input
                         onChange={this.onTitleChange.bind(this)}
                         value={this.props.template.title}
-                        className="form-control" type="text" placeholder="Title" />
+                        className="form-control" type="text" placeholder="A title describing the product later tracked e.g. bike" />
                 </div>
                 <div className="row input-group input-spacing-y">
                     <span className="input-group-addon">Description</span>
                     <input
                         onChange={this.onDescriptionChange.bind(this)}
                         value={this.props.template.description}
-                        className="form-control" type="text" placeholder="Description" />
+                        className="form-control" type="text" placeholder="Description a description of the product e.g. Green bike produced by Bike Factory" />
                 </div>
                 <div className="row input-group input-spacing-y">
                     <span className="input-group-addon">Quantity</span>
                     <input
                         onChange={this.onQuantityChange.bind(this)}
                         value={this.props.template.quantity}
-                        className="form-control" type="text" placeholder="Quantity" />
+                        className="form-control" type="text" placeholder="Quantity, 1 or many products" />
                     <span className="input-group-addon">Units</span>
                     <input
                         onChange={this.onUnitChange.bind(this)}
                         value={this.props.template.units}
-                        className="form-control" type="text" placeholder="Units" />
+                        className="form-control" type="text" placeholder="Units of measurement e.g. bottle" />
                 </div>
             </div>
         );
