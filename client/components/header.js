@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import Accounts from './accounts';
+import UnlockWallet from './wallet/unlock_wallet';
 
 class Header extends Component {
     onAddTemplateClick(event) {
@@ -36,7 +37,9 @@ class Header extends Component {
                         <a href="#" onClick={this.onAddProductClick.bind(this)}>Add Product</a>
                     </li>
                     <li>
-                        <a>Your ID: {Meteor.userId()}</a>
+                        <UnlockWallet
+                            onKeyStoreUnlock={this.props.onKeyStoreUnlock}
+                            wallet={this.props.keyStore} />
                     </li>
                 </ul>
             </nav>

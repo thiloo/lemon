@@ -13,13 +13,13 @@ class UnlockWallet extends Component {
     }
 
     unlockWallet(event) {
-        const id = event.target.parentElement.id;
-        const { keyStore, _id } = this.props.wallets.find((wallet) => wallet._id == id);
+        // const id = event.target.parentElement.id;
+        const { keyStore, _id } = this.props.wallet;
         const ks = lightwallet.keystore.deserialize(keyStore);
 
-        this.props.changeKeyStoreState(ks);
-        this.props.changeWalletId(_id);
-        ks.keyFromPassword(this.state.password, (err, key) => this.props.changePwDerivedKeyState(key));
+        // this.props.changeKeyStoreState(ks);
+        // this.props.changeWalletId(_id);
+        ks.keyFromPassword(this.state.password, (err, key) => this.props.onKeyStoreUnlock(key));
     }
 
     onPasswordInput(password) {
@@ -29,7 +29,9 @@ class UnlockWallet extends Component {
     }
 
     renderWallets() {
-        return this.props.wallets.map((wallet) => {
+        if(this.props.wallet != undefined) {
+            const wallet = this.props.wallet;
+            // return this.props.wallets.map((wallet) => {
             return (
                 <SingleWallet
                     onPasswordInput={this.onPasswordInput.bind(this)}
@@ -38,7 +40,9 @@ class UnlockWallet extends Component {
                     state={this.state}
                     wallet={wallet} />
             );
-        });
+            // });
+        }
+
     }
 
     render() {

@@ -9,7 +9,8 @@ Meteor.methods({
             ownerId: this.userId,
             quantity: '',
             units: '',
-            additionalFields: []
+            additionalFields: [],
+            abi: ''
         });
     },
 
@@ -55,6 +56,10 @@ Meteor.methods({
 
     'templates.delete.template': function(template) {
         return Templates.remove({_id: template._id});
+    },
+
+    'templates.update.abi': function(template, compiled) {
+        return Templates.update(template._id, { $set: { compiled }});
     }
 
 });

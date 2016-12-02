@@ -67,7 +67,7 @@ class WalletMain extends Component {
                     ks={this.state.keyStore}
                     pw={this.state.pwDerivedKey} />
                 <ContractInteraction contracts={this.props.contracts} />
-                {/* <NewWallet /> */}
+                <NewWallet />
             </div>
         );
     }

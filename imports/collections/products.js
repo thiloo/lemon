@@ -34,6 +34,10 @@ Meteor.methods({
         return Products.update(
             {_id: product._id, 'template.additionalFields._id': field._id},
             {$set: {'template.additionalFields.$.content': update }});
+    },
+
+    'products.delete.product': function(product) {
+        return Products.remove({_id: product._id });
     }
 
 });

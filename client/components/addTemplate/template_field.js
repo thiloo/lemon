@@ -31,11 +31,11 @@ class NewField extends Component {
                         className="form-control" placeholder="Name of variable tracked, e.g. production date " />
                 </div>
                 <div className="form-group col-sm-3">
-                    <select className="form-control">
+                    <select className="form-control" onChange={this.onTypeChange.bind(this)}>
                         <option default disabled>Variable type</option>
-                        <option>String</option>
-                        <option>Number</option>
-                        <option>Boolean</option>
+                        <option>string</option>
+                        <option>uint</option>
+                        <option>boolean</option>
                     </select>
                 </div>
                 <div className="form-group col-sm-1">
