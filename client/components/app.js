@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Keys} from '../../imports/collections/keys';
 import HookedWeb3Provider from 'hooked-web3-provider';
+import { browserHistory } from 'react-router';
 
 import Header from './header';
 
@@ -10,10 +11,23 @@ class App extends Component {
         super(props);
 
         this.state = {
+            isAuthenticated: Meteor.userId() != null,
             pwDerivedKey: '',
             keyStore: '',
         };
     }
+
+    // componentWillMount(){
+    //     if (!this.state.isAuthenticated) {
+    //         browserHistory.push('/login');
+    //     }
+    // }
+    //
+    // componentDidUpdate(prevProps, prevState){
+    //     if (!this.state.isAuthenticated) {
+    //         browserHistory.push('/login');
+    //     }
+    // }
 
     onKeyStoreUnlock(pwDerivedKey) {
         this.setState({ pwDerivedKey });
@@ -35,8 +49,10 @@ class App extends Component {
         return (
             <div>
                 <Header
+                    setKeyStore={this.onKeyStoreUnlock.bind(this)}
                     onKeyStoreUnlock={this.onKeyStoreUnlock.bind(this)}
                     onKeyStoreDeserialize={this.setWeb3Provider.bind(this)}
+                    pwDerivedKey={this.state.pwDerivedKey}
                     keyStore={this.props.keyStore} />
                 {children}
             </div>

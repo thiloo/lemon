@@ -25,11 +25,10 @@ class ProductTemplate extends Component {
         // get pararameters from input fields
         const accounts = web3.eth.accounts;
         const parameters = fields.map(field => field.content);
-        
         // publish contract and then store information in about published contract in db
         contract.new(... parameters, {from: accounts[1], data: compiled.code, gas: 4000000}, (error, value) => {
             if(!error) {
-                Meteor.call('contracts.save.newContract', this.props.walletId, this.props.product.template.title, abi, value.address);
+                Meteor.call('contracts.save.newContract', this.props.walletId, this.props.product._id, this.props.product.template.title, abi, value.address);
             }
         });
     }
@@ -47,11 +46,9 @@ class ProductTemplate extends Component {
                     </div>
                     {this.renderFields()}
                     <div className="col-sm-offset-2 col-sm-6">
-                        {/* <Link to={`/products/${this.props.product._id}`}> */}
                         <button
                             onClick={this.saveToBlockchain.bind(this)}
                             className="btn btn-success col-sm-3">Save to Blockchain</button>
-                        {/* </Link> */}
                         <Link to={'/'}><button
                             onClick={this.deleteProduct.bind(this)}
                             className="btn btn-danger col-sm-3">Delete</button></Link>
