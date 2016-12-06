@@ -3,6 +3,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Keys} from '../../imports/collections/keys';
 import HookedWeb3Provider from 'hooked-web3-provider';
 import { browserHistory } from 'react-router';
+import lightwallet from 'eth-lightwallet';
 
 import Header from './header';
 
@@ -11,10 +12,9 @@ class App extends Component {
         super(props);
 
         this.state = {
-            isAuthenticated: Meteor.userId() != null,
             pwDerivedKey: '',
-            keyStore: '',
         };
+
     }
 
     // componentWillMount(){
@@ -33,15 +33,21 @@ class App extends Component {
         this.setState({ pwDerivedKey });
     }
 
-    setWeb3Provider(ks) {
-        const web3Provider = new HookedWeb3Provider({
-            host: "http://localhost:8545",
-            transaction_signer: ks
-        });
-        web3.setProvider(web3Provider);
+    setWeb3Provider() {
+        if(!web3.currentProvider && this.props.keyStore) {
+            const ks = this.props.keyStore.keyStore;
+            const deserialized = lightwallet.keystore.deserialize(ks);
+            const web3Provider = new HookedWeb3Provider({
+                host: "http://localhost:8545",
+                transaction_signer: deserialized
+            });
+            web3.setProvider(web3Provider);
+        }
+
     }
 
     render() {
+        {this.setWeb3Provider();}
         const children = React.cloneElement(this.props.children, {
             keyStore: this.props.keyStore,
             pwDerivedKey: this.state.pwDerivedKey

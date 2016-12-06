@@ -37,7 +37,9 @@ export default class LoginPage extends Component {
         if(this.props.keyStore && password && this.props.pwDerivedKey == '') {
             const ks = this.props.keyStore.keyStore;
             const deserialized = lightwallet.keystore.deserialize(ks);
+            
             this.props.onKeyStoreDeserialize(deserialized);
+
             deserialized.keyFromPassword(password, (err, key) => this.props.onKeyStoreUnlock(key));
         }
     }

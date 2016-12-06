@@ -33,7 +33,7 @@ class AddTemplate extends Component {
     }
 
     generateSourceCode(event) {
-        event.preventDefault();
+        // event.preventDefault();
         // here dynamically generated source code should appear, based on template
         const fields = this.props.template.additionalFields;
         let variables = '';
@@ -59,6 +59,7 @@ class AddTemplate extends Component {
         const sourceCode = `pragma solidity ^0.4.4; contract SimpleProduct { ${variables} function SimpleProduct( ${identifiers} ) { ${input} } } `;
 
         web3.eth.compile.solidity(sourceCode, (error, compiled) => {
+            console.log(error, compiled);
             if(!error) {
                 Meteor.call('templates.update.abi', this.props.template, compiled);
             }
@@ -74,7 +75,9 @@ class AddTemplate extends Component {
                     <AdditionalFields template={this.props.template} />
                     <div className="col-sm-10 col-sm-offset-3">
                         <button className="btn btn-primary col-sm-2" onClick={ this.addField.bind(this) }>Add New Field</button>
-                        <button className="btn btn-success col-sm-2" onClick={ this.generateSourceCode.bind(this) }>Save Template</button>
+                        <Link to={url}>
+                            <button className="btn btn-success col-sm-2" onClick={ this.generateSourceCode.bind(this) }>Save Template</button>
+                        </Link>
                         <Link to={url}>
                             <button className="btn btn-danger col-sm-2" onClick={ this.deleteTemplate.bind(this) }>Delete Template</button>
                         </Link>

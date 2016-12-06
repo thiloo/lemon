@@ -3,8 +3,6 @@ import {browserHistory, Link} from 'react-router';
 import {Accounts} from 'meteor/accounts-base';
 import lightwallet from 'eth-lightwallet';
 
-let password;
-
 export default class SignupPage extends Component {
     constructor(props) {
         super(props);
@@ -16,28 +14,31 @@ export default class SignupPage extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        let name = document.getElementById("signup-name").value;
         let email = document.getElementById("signup-email").value;
-        password = document.getElementById("signup-password").value;
+        let password = document.getElementById("signup-password").value;
 
         Accounts.createUser({
             email: email,
-            username: name,
             password: password
         }, (err) => {
             if (err) {
                 this.setState({error: err.reason});
             } else {
+                this.onClose();
                 lightwallet.keystore.createVault({ password: password },
                     (err, ks) => {
                         if (err) {
                             this.setState({error: err.reason});
                         } else {
-                            this.onClose();
-                            const serialize = ks.serialize();
-                            this.onKeyStoreDeserialize(ks);
-                            ks.keyFromPassword(password, (err, key) => this.props.onKeyStoreUnlock(key));
-                            Meteor.call('keys.save.newWallet', serialize);
+                            ks.keyFromPassword(password, (err, key) => {
+                                this.props.onKeyStoreUnlock(key);
+
+                                ks.generateNewAddress(key, 1);
+                                this.props.onKeyStoreDeserialize(ks);
+
+                                const serialized = ks.serialize();
+                                Meteor.call('keys.save.newWallet', serialized);
+                            });
                         }
                     });
                 // browserHistory.push('/');
@@ -47,10 +48,6 @@ export default class SignupPage extends Component {
 
     onClose() {
         this.props.closeModal();
-    }
-
-    setKeyStore(ks) {
-        this.props.setKeyStore(ks);
     }
 
     render() {
@@ -69,9 +66,6 @@ export default class SignupPage extends Component {
                                     ? <div className="alert alert-danger fade in">{error}</div>
                                     : ''}
                                 <form id="login-form" className="form col-md-12 center-block" onSubmit={this.handleSubmit}>
-                                    <div className="form-group">
-                                        <input type="text" id="signup-name" className="form-control input-lg" placeholder="name"/>
-                                    </div>
                                     <div className="form-group">
                                         <input type="email" id="signup-email" className="form-control input-lg" placeholder="email"/>
                                     </div>
