@@ -55,7 +55,8 @@ class WalletMain extends Component {
         return (
             <div>
                 <UnlockWallet
-                    mainState={this.state} changePwDerivedKeyState={this.changePwDerivedKeyState.bind(this)} changeKeyStoreState={this.changeKeyStoreState.bind(this)} changeWalletId={this.changeWalletId.bind(this)} wallets={this.props.wallets}/>
+                    mainState={this.state} changePwDerivedKeyState={this.changePwDerivedKeyState.bind(this)} changeKeyStoreState={this.changeKeyStoreState.bind(this)} changeWalletId={this.changeWalletId.bind(this)}
+                    wallets={this.props.wallets}/>
                 <NewAddress
                     onAddressSelect={this.onAddressSelect.bind(this)}
                     keys={this.state}/>

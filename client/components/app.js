@@ -19,18 +19,15 @@ class App extends Component {
         this.setState({ pwDerivedKey });
     }
 
-    setWeb3Provider() {
-        if(this.props.keyStore) {
-            const web3Provider = new HookedWeb3Provider({
-                host: "http://localhost:8545",
-                transaction_signer: this.props.keyStore
-            });
-            web3.setProvider(web3Provider);
-        }
+    setWeb3Provider(ks) {
+        const web3Provider = new HookedWeb3Provider({
+            host: "http://localhost:8545",
+            transaction_signer: ks
+        });
+        web3.setProvider(web3Provider);
     }
 
     render() {
-        {this.setWeb3Provider();}
         const children = React.cloneElement(this.props.children, {
             keyStore: this.props.keyStore,
             pwDerivedKey: this.state.pwDerivedKey
@@ -39,6 +36,7 @@ class App extends Component {
             <div>
                 <Header
                     onKeyStoreUnlock={this.onKeyStoreUnlock.bind(this)}
+                    onKeyStoreDeserialize={this.setWeb3Provider.bind(this)}
                     keyStore={this.props.keyStore} />
                 {children}
             </div>

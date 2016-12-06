@@ -39,6 +39,7 @@ class Header extends Component {
                     <li>
                         <UnlockWallet
                             onKeyStoreUnlock={this.props.onKeyStoreUnlock}
+                            onKeyStoreDeserialize={this.props.onKeyStoreDeserialize}
                             wallet={this.props.keyStore} />
                     </li>
                 </ul>

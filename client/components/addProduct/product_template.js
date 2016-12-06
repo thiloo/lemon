@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ProductTemplateField from './product_template_field';
 import { Link } from 'react-router';
-
+import HookedWeb3Provider from 'hooked-web3-provider';
 
 class ProductTemplate extends Component {
     renderFields() {
@@ -18,13 +18,20 @@ class ProductTemplate extends Component {
 
     saveToBlockchain() {
         const fields = this.props.product.template.additionalFields.filter(field => field != null);
-        const compiled = this.props.product.template.compiled.info;
-        const abi = compiled.abiDefinition;
+        const compiled = this.props.product.template.compiled;
+        const abi = compiled.info.abiDefinition;
         const contract = web3.eth.contract(abi);
+
         // get pararameters from input fields
+        const accounts = web3.eth.accounts;
         const parameters = fields.map(field => field.content);
-        const contractInstance = contract.new(... parameters, {from: '0x96f909f35f91e3cdca071c7c0b4ba79ab22150a0', data: compiled.code, gas: 4000000}, (error, value) => console.log(error, value));
-        console.log();
+        
+        // publish contract and then store information in about published contract in db
+        contract.new(... parameters, {from: accounts[1], data: compiled.code, gas: 4000000}, (error, value) => {
+            if(!error) {
+                Meteor.call('contracts.save.newContract', this.props.walletId, this.props.product.template.title, abi, value.address);
+            }
+        });
     }
 
     deleteProduct() {
