@@ -1,10 +1,10 @@
 import { Mongo } from 'meteor/mongo';
 
 Meteor.methods({
-    'keys.save.newWallet': function(wallet) {
+    'keys.save.newWallet': function(keyStore) {
         return Keys.insert({
             ownerId: this.userId,
-            keyStore: wallet,
+            keyStore: keyStore,
             contracts: []
         });
     },

@@ -10,7 +10,7 @@ Meteor.methods({
             quantity: '',
             units: '',
             additionalFields: [],
-            abi: ''
+            compiled: ''
         });
     },
 

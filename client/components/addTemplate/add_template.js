@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import RequiredTemplateFields from './required_template_fields';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
 import AdditionalFields from './additional_template_fields';
 import { Templates } from '../../../imports/collections/templates';
@@ -64,6 +64,7 @@ class AddTemplate extends Component {
                 Meteor.call('templates.update.abi', this.props.template, compiled);
             }
         });
+        // browserHistory.push('/');
     }
 
     render() {
@@ -76,8 +77,7 @@ class AddTemplate extends Component {
                     <div className="col-sm-10 col-sm-offset-3">
                         <button className="btn btn-primary col-sm-2" onClick={ this.addField.bind(this) }>Add New Field</button>
                         <Link to={url}>
-                            <button className="btn btn-success col-sm-2" onClick={ this.generateSourceCode.bind(this) }>Save Template</button>
-                        </Link>
+                        <button className="btn btn-success col-sm-2" onClick={ this.generateSourceCode.bind(this) }>Save Template</button></Link>
                         <Link to={url}>
                             <button className="btn btn-danger col-sm-2" onClick={ this.deleteTemplate.bind(this) }>Delete Template</button>
                         </Link>

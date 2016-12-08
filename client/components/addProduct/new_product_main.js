@@ -61,6 +61,7 @@ class NewProduct extends Component {
                     templates={this.props.templates} />
 
                 <ProductTemplate
+                    keyStore={this.props.keyStore}
                     product={this.props.product}
                  />
             </div>

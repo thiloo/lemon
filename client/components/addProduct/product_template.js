@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProductTemplateField from './product_template_field';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import HookedWeb3Provider from 'hooked-web3-provider';
 
 class ProductTemplate extends Component {
@@ -16,21 +16,28 @@ class ProductTemplate extends Component {
         });
     }
 
-    saveToBlockchain() {
+    saveToBlockchain(e) {
+        e.preventDefault();
+
         const fields = this.props.product.template.additionalFields.filter(field => field != null);
         const compiled = this.props.product.template.compiled;
         const abi = compiled.info.abiDefinition;
         const contract = web3.eth.contract(abi);
 
         // get pararameters from input fields
-        const accounts = web3.eth.accounts;
-        const parameters = fields.map(field => field.content);
-        // publish contract and then store information in about published contract in db
-        contract.new(... parameters, {from: accounts[1], data: compiled.code, gas: 4000000}, (error, value) => {
-            if(!error) {
-                Meteor.call('contracts.save.newContract', this.props.walletId, this.props.product._id, this.props.product.template.title, abi, value.address);
-            }
+        web3.eth.getAccounts((error, accounts) => {
+            if(error) throw error;
+
+            const parameters = fields.map(field => field.content);
+            // publish contract and then store information in about published contract in db
+            contract.new(... parameters, {from: accounts[0], data: compiled.code, gas: 4000000}, (error, value) => {
+                if(!error && value.address) {
+                    Meteor.call('products.update.blockchainDetails', this.props.product, abi, value.address, this.props.keyStore._id);
+                    browserHistory.push(`/products/${this.props.product._id}`);
+                }
+            });
         });
+
     }
 
     deleteProduct() {

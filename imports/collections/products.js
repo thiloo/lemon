@@ -7,6 +7,9 @@ Meteor.methods({
             ownerId: this.userId,
             active: false,
             template: '',
+            abi: '',
+            address: '',
+            keyStoreId: '',
             transaction: {
                 toAddress: '',
                 quantity: ''
@@ -38,6 +41,10 @@ Meteor.methods({
 
     'products.delete.product': function(product) {
         return Products.remove({_id: product._id });
+    },
+
+    'products.update.blockchainDetails': function(product, abi, address, keyStoreId) {
+        return Products.update(product._id, { $set: { abi, address, keyStoreId }});
     }
 
 });
