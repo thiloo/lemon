@@ -18,8 +18,12 @@ class ProductTemplate extends Component {
 
     saveToBlockchain(e) {
         e.preventDefault();
+        const { title, description, quantity, units } = this.props.product.template;
+        const mandatoryFields = [ title, description, quantity, units ];
+        let additionalFields = this.props.product.template.additionalFields.filter(field => field != null);
+        additionalFields = additionalFields.map(field => field.content);
+        const parameters = mandatoryFields.concat(additionalFields);
 
-        const fields = this.props.product.template.additionalFields.filter(field => field != null);
         const compiled = this.props.product.template.compiled;
         const abi = compiled.info.abiDefinition;
         const contract = web3.eth.contract(abi);
@@ -28,11 +32,13 @@ class ProductTemplate extends Component {
         web3.eth.getAccounts((error, accounts) => {
             if(error) throw error;
 
-            const parameters = fields.map(field => field.content);
+
             // publish contract and then store information in about published contract in db
             contract.new(... parameters, {from: accounts[0], data: compiled.code, gas: 4000000}, (error, value) => {
                 if(!error && value.address) {
                     Meteor.call('products.update.blockchainDetails', this.props.product, abi, value.address, this.props.keyStore._id);
+                    Meteor.call('products.update.active', this.props.product);
+
                     browserHistory.push(`/products/${this.props.product._id}`);
                 }
             });

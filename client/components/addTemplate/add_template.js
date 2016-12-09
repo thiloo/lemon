@@ -35,35 +35,15 @@ class AddTemplate extends Component {
     generateSourceCode(event) {
         // event.preventDefault();
         // here dynamically generated source code should appear, based on template
-        const fields = this.props.template.additionalFields;
-        let variables = '';
-        let identifiers = '';
-        let input = '';
-        let counter = 0;
-        // generate the solidity code based on the input
-        fields.map(field => {
-            counter += 1;
-            // per input field one variable, identifiers = for function input. Input = in function
-            if(counter < fields.length) {
-                variables += `${field.type} public ${field.title}; `;
-                identifiers += `${field.type} p${field.title}, `;
-                input += `${field.title} = p${field.title}; `;
-            }
-            // for the last variables no commas should be at the end.
-            if(counter == fields.length) {
-                variables += `${field.type} public ${field.title};`;
-                identifiers += `${field.type} p${field.title}`;
-                input += `${field.title} = p${field.title};`;
-            }
+        Meteor.call('solidity.generate.contract', this.props.template, (error, sourceCode) => {
+            if(error) throw error;
+            web3.eth.compile.solidity(sourceCode, (error, compiled) => {
+                if(!error) {
+                    Meteor.call('templates.update.abi', this.props.template, compiled);
+                }
+            });
         });
-        const sourceCode = `pragma solidity ^0.4.4; contract SimpleProduct { ${variables} function SimpleProduct( ${identifiers} ) { ${input} } } `;
 
-        web3.eth.compile.solidity(sourceCode, (error, compiled) => {
-            console.log(error, compiled);
-            if(!error) {
-                Meteor.call('templates.update.abi', this.props.template, compiled);
-            }
-        });
         // browserHistory.push('/');
     }
 

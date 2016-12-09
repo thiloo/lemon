@@ -45,6 +45,10 @@ Meteor.methods({
 
     'products.update.blockchainDetails': function(product, abi, address, keyStoreId) {
         return Products.update(product._id, { $set: { abi, address, keyStoreId }});
+    },
+
+    'products.update.active': function(product) {
+        return Products.update(product._id, { $set: { active: true }});
     }
 
 });

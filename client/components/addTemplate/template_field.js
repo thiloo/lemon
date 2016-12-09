@@ -35,7 +35,6 @@ class NewField extends Component {
                         <option default disabled>Variable type</option>
                         <option>string</option>
                         <option>uint</option>
-                        <option>boolean</option>
                     </select>
                 </div>
                 <div className="form-group col-sm-1">

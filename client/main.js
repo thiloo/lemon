@@ -14,7 +14,7 @@ import { Contracts } from '../imports/collections/contracts';
 import ChainInteraction from './components/chainStuff/chain_interaction';
 import WalletMain from './components/wallet/wallet_main';
 import AddTemplate from './components/addTemplate/add_template';
-
+import ChainDetails from './components/chainStuff/chain_details';
 
 
 // After Meteor loads, render this to the DOM
@@ -22,6 +22,7 @@ const routes = (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={ProductList} />
+            <Route path="chain/products/:address" component={ChainDetails} />
             <Route path="products/:productId" component={ProductOverview} />
             <Route path="products/add/:productId" component={NewProduct} />
             <Route path="products/send/:productId" component={SendProduct} />

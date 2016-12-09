@@ -25,13 +25,14 @@ class ProductsMain extends Component {
         return (
             <div className="container">
                 <ProductInfo product={this.props.product} />
-                <div className="col-md-10">
+                {/* <div className="col-md-10">
                     <button
                         onClick={this.renderSendProduct.bind(this)}
                         className="btn btn-primary">Send Product</button>
-                </div>
+                </div> */}
                 <div>
-                    { this.state.clickedSendProduct ? <SendProduct product={this.props.product} /> : null }
+                    {/* to send the product to another person on the bchain */}
+                    {/* { this.state.clickedSendProduct ? <SendProduct product={this.props.product} /> : null } */}
                 </div>
             </div>
         );

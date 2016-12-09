@@ -1,11 +1,49 @@
 import React, { Component } from 'react';
 
 class ProductInfo extends Component {
+    renderFields(fields) {
+        let reqInfo = {};
+        // get the main info like title to render it
+        fields.forEach(field => {
+            if (typeof field.value == 'object') {
+                reqInfo[field.title] = field.value.c[0];
+            } else {
+                reqInfo[field.title]= field.value;
+            }
+        });
+
+        // additional Infofields
+
+        const additionalFields = fields.map(field => {
+            if(field.title != "title" && field.title != "quantity" && field.title != "description" && field.title != "units") {
+                return field;
+            } else {
+                return null;
+            }
+        });
+
+        return (
+            <div>
+                <div>
+                    <h1>{reqInfo.title}</h1>
+                    <p>{reqInfo.description}</p>
+                    <p>{reqInfo.quantity} {reqInfo.units}</p>
+                    <p>{this.props.product.address}</p>
+                </div>
+                <div>
+                    Additional Information:
+                    {this.renderAdditionalFields(additionalFields)}
+                </div>
+            </div>
+        );
+    }
+
     renderAdditionalFields(fields) {
-        return fields.map((field) => {
+        const cleaned = fields.filter(field => field != null);
+        return cleaned.map(field => {
             return (
                 <div key={field.title}>
-                    {field.title}, and the content: {field.value}
+                    {field.value}
                 </div>
             );
         });
@@ -16,8 +54,8 @@ class ProductInfo extends Component {
             const abi = this.props.product.abi;
             const address= this.props.product.address;
             const contract = web3.eth.contract(abi);
-
             const instance = contract.at(address);
+
             const constants = instance.abi.map(constant => {
                 if (constant.constant) {
                     return constant.name;
@@ -33,22 +71,18 @@ class ProductInfo extends Component {
                     value: instance[field].call()
                 };
             });
-            console.log(values);
 
-            return this.renderAdditionalFields(values);
+            return this.renderFields(values);
         }
 
     }
 
     render() {
+
         if(this.props.product) {
-            console.log(this.props.product);
-            const { title, description } = this.props.product.template;
             return (
                 <div className="row col-md-offest-1 col-md-10 productInfoWrapper">
                     <div className="">
-                        <h1>{title}</h1>
-                        <p>{description}</p>
                         {this.blockchainInteraction()}
                     </div>
                 </div>
