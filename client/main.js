@@ -23,7 +23,7 @@ const routes = (
         <Route path="/" component={App}>
             <IndexRoute component={ProductList} />
             <Route path="chain/products/:address" component={ChainDetails} />
-            <Route path="products/:productId" component={ProductOverview} />
+            <Route path="products/:address" component={ProductOverview} />
             <Route path="products/add/:productId" component={NewProduct} />
             <Route path="products/send/:productId" component={SendProduct} />
             <Route path="templates/:templateId" component={AddTemplate} />

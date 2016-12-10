@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const ProductDetail = ({ product }) => {
-    const { _id } = product;
+    const { address } = product;
     const { title, description, quantity, units } = product.template;
-    const url = `/products/${_id}`;
+    const url = `/products/${address}`;
     return (
         <Link to={url}>
             <div className="thumbnail">

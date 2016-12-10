@@ -15,7 +15,7 @@ Meteor.startup(() => {
         return Fields.find({ ownerId: this.userId });
     });
     Meteor.publish('products', function() {
-        return Products.find({ ownerId: this.userId });
+        return Products.find({ });
     });
     Meteor.publish('keys', function() {
         return Keys.find({ ownerId: this.userId });

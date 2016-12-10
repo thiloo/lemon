@@ -40,7 +40,7 @@ export default createContainer(() => {
     Meteor.subscribe('products', PER_PAGE);
     Meteor.subscribe('templates');
     //return as an object sent to ProductList as props
-    return { products: Products.find({}).fetch() };
+    return { products: Products.find({ ownerId: Meteor.userId() }).fetch() };
     // return { templates: Templates.find({}).fetch() }
 
 }, ProductList);

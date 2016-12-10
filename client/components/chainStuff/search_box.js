@@ -15,15 +15,25 @@ class SearchBox extends Component {
     }
 
     handleSubmit(event) {
-        browserHistory.push(`/chain/products/${this.state.value}`);
         event.preventDefault();
+        if(Meteor.userId()) {
+            browserHistory.push(`/products/${this.state.value}`);
+        } else {
+            browserHistory.push(`/chain/products/${this.state.value}`);
+        }
+
+
     }
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} className="form-group">
-                <input type="text" placeholder="Enter an Address" value={this.state.value} onChange={this.handleChange} className="form-control" />
-                <input type="submit" value="Submit" className="btn btn-primary" />
+            <form onSubmit={this.handleSubmit} className="form-inline">
+                <div className="input-group col-sm-8 col-sm-offset-3">
+                    <input type="text" placeholder="Search for a product, enter an address" value={this.state.value} onChange={this.handleChange} className="form-control" />
+                     <span className="input-group-btn">
+                         <button type="submit" value="Submit" className="btn btn-default">Search</button>
+                     </span>
+                </div>
             </form>
         );
     }
