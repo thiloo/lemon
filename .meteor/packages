@@ -25,3 +25,4 @@ twbs:bootstrap
 deanius:promise
 http
 ethereum:web3
+session
