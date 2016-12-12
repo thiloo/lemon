@@ -1,24 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class TemplateDropdownItem extends Component {
-    templateSet() {
-        console.log(this.props.template, this.props.product);
-    }
+const TemplateDropdownItem = (props) => {
+    return (
+        <div className="">
+            <li className='list-group-item'
+                onClick={() => {
+                    props.onTemplateSelect(props.template._id); }}>
 
-    render() {
-        return (
-            <div className="">
-                <li className='list-group-item'
-                    onClick={() => {
-                        this.templateSet.bind(this);
-                        this.props.onTemplateSelect(this.props.template._id); }}>
-
-                    <div className="bring-one-line">{this.props.template.title}</div>
-                    <div className="bring-one-line">{this.props.template.description}</div>
-                </li>
-            </div>
-        );
-    }
-}
+                <div className="bring-one-line">{props.template.title} - {props.template.description}</div>
+            </li>
+        </div>
+    );
+};
 
 export default TemplateDropdownItem;

@@ -5,10 +5,11 @@ class ProductInfo extends Component {
         super(props);
 
         this.state = {
-            fields: ''
+            fields: '',
+            owner: ''
         };
     }
-    
+
     renderAdditionalFields() {
         if(this.state.fields != '') {
             const fields = this.state.fields;
@@ -32,16 +33,23 @@ class ProductInfo extends Component {
     }
 
     blockchainInteraction() {
-        const abi = this.props.product.abi;
-        const address= this.props.product.address;
-        const contract = web3.eth.contract(abi);
-        const instance = contract.at(address);
-        // retrieve the ipfs hash
-        const ipfsHash = instance.get();
+        console.log(this.props.product, this.state.fields);
+        if(this.props.product && this.state.fields == '') {
+            console.log('hey');
+            const abi = this.props.product.abi;
+            const address= this.props.product.address;
+            const contract = web3.eth.contract(abi);
+            const instance = contract.at(address);
+            // retrieve the ipfs hash
+            const ipfsHash = instance.get();
+            const owner = instance.getOwner();
+            console.log(instance, ipfsHash, owner);
+            Meteor.call('ipfs.getJson', ipfsHash, (err, fields) => {
+                console.log(err, fields);
+                return this.setState({ fields, owner });
+            });
+        }
 
-        Meteor.call('ipfs.getJson', ipfsHash, (err, fields) => {
-            return this.setState({fields: fields});
-        });
     }
 
     render() {
@@ -56,7 +64,8 @@ class ProductInfo extends Component {
                                 <h1>{title}</h1>
                                 <p>{description}</p>
                                 <p>{quantity} {units}</p>
-                                <p>{this.props.product.address}</p>
+                                <p>Address: {this.props.product.address}</p>
+                                <p>Owner: {this.state.owner}</p>
                             </div>
                             <div>
                                 Additional Information:

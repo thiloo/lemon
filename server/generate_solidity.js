@@ -30,8 +30,13 @@ Meteor.methods({
                 input += `${field.title} = p${field.title};`;
             }
         });
-        // const sourceCode = `pragma solidity ^0.4.4; contract SimpleProduct { ${variables} function SimpleProduct( ${identifiers} ) { ${input} } } `;
-        const sourceCode = `pragma solidity ^0.4.4; contract SimpleStorage { string storedData; function SimpleStorage(string x) { storedData = x; } function get() constant returns (string x) { return storedData; } }`;
-        return sourceCode;
+
+        // const sourceCode = `pragma solidity ^0.4.4; contract SimpleStorage { string storedData; function SimpleStorage(string x) { storedData = x; } function get() constant returns (string x) { return storedData; } }`;
+
+        // const sourceCode2 = `pragma solidity ^0.4.4; contract SimpleStorage { string storedData; address owner; function SimpleStorage(string x) { storedData = x; owner = msg.sender; } function get() constant returns (string x) { return storedData; } function getOwner() constant returns (address y) { return owner; } function changeOwner(address adr) { if(msg.sender != owner) throw; owner = adr; } }`;
+
+        const sourceCode3 = `pragma solidity ^0.4.4; contract SimpleStorage { string storedData; address owner; mapping (address => uint) public coinBalanceOf; event CoinTransfer(address sender, address receiver, uint amount); function SimpleStorage(string x, uint supply) { storedData = x; owner = msg.sender; coinBalanceOf[msg.sender] = supply; } function get() constant returns (string x) { return storedData; } function getOwner() constant returns (address y) { return owner; } function changeOwner(address adr) { if(msg.sender != owner) throw; owner = adr; } function sendCoin(address receiver, uint amount) returns(bool sufficient) { if (coinBalanceOf[msg.sender] < amount) return false; coinBalanceOf[msg.sender] -= amount; coinBalanceOf[receiver] += amount; CoinTransfer(msg.sender, receiver, amount); return true; } }`;
+
+        return sourceCode3;
     }
 });

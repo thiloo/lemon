@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 class SendProduct extends Component {
-    onAddressChange(event) {
-        Meteor.call('products.update.transaction.toAddress', this.props.product, event.target.value);
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            sendTo: ''
+        };
     }
 
-    onQuantityChange(event) {
-        Meteor.call('products.update.transaction.quantity', this.props.product, event.target.value);
+    onAddressChange(event) {
+        this.setState({ sendTo: event.target.value });
     }
+
+    // onQuantityChange(event) {
+    //
+    // }
 
     inputValueOnChange() {
         if(this.props.product.transaction) {
@@ -18,13 +26,16 @@ class SendProduct extends Component {
         }
     }
 
-    onClickSend() {
-        Meteor.call('products.update.ownerId', this.props.product);
-    }
-
     transferOwnership() {
+        const abi = this.props.product.abi;
+        const address= this.props.product.address;
+        const contract = web3.eth.contract(abi);
+        const instance = contract.at(address);
+        web3.eth.getAccounts((error, accounts) => {
+            console.log(error, accounts, this.state.sendTo);
+            instance.changeOwner.sendTransaction(this.state.sendTo, {from: accounts[0], gas: 4000000}, (err, transfer) => console.log(err, transfer));
+        });
 
-        Meteor.call('products.update.ownerId', this.props.product);
     }
 
     render() {
@@ -34,23 +45,23 @@ class SendProduct extends Component {
                 <div>
                     <input
                         onChange={this.onAddressChange.bind(this)}
-                        value={this.props.product.transaction.toAddress}
+                        value={this.state.sendTo}
                         className="form-control"
                         placeholder="send to address" />
-                    <input
+                    {/* <input
                         onChange={this.onQuantityChange.bind(this)}
                         value={this.props.product.transaction.quantity}
                         className="form-control"
-                        placeholder="quantity" />
+                        placeholder="quantity" /> */}
 
                 </div>
                 <div>
-                    <Link to={url}>
+                    {/* <Link to={url}> */}
                         <button
                             onClick={this.transferOwnership.bind(this)}
                             className="btn btn-primary">Transfer Ownership
                         </button>
-                    </Link>
+                    {/* </Link> */}
                 </div>
             </div>
         );

@@ -36,10 +36,8 @@ class AddTemplate extends Component {
         event.preventDefault();
         // here dynamically generated source code should appear, based on template
         Meteor.call('solidity.generate.contract', this.props.template, (error, sourceCode) => {
-            console.log(sourceCode);
             if(error) throw error;
             web3.eth.compile.solidity(sourceCode, (error, compiled) => {
-                console.log(error, compiled);
                 if(!error) {
                     Meteor.call('templates.update.abi', this.props.template, compiled);
                     browserHistory.push('/');
