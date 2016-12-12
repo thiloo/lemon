@@ -27,26 +27,24 @@ class ProductTemplate extends Component {
         const compiled = this.props.product.template.compiled;
         const abi = compiled.info.abiDefinition;
         const contract = web3.eth.contract(abi);
-        console.log(this.props.product.template);
-        Meteor.call('ipfs.saveJson', this.props.product._id, this.props.product.template, (error, value) => {
-            console.log(error, value);
+        Meteor.call('ipfs.saveJson', this.props.product._id, this.props.product.template, (error, ipfsValue) => {
+            // get pararameters from input fields
+            web3.eth.getAccounts((error, accounts) => {
+                if(error) throw error;
+
+                // publish contract and then store information in about published contract in db
+                contract.new(ipfsValue.hash, {from: accounts[0], data: compiled.code, gas: 4000000}, (error, value) => {
+                    if(!error && value.address) {
+                        Meteor.call('products.update.blockchainDetails', this.props.product, value.abi, value.address, this.props.keyStore._id);
+                        Meteor.call('products.update.active', this.props.product);
+
+                        browserHistory.push(`/products/${value.address}`);
+                    }
+                });
+            });
         });
 
-        // get pararameters from input fields
-        // web3.eth.getAccounts((error, accounts) => {
-        //     if(error) throw error;
-        //
-        //
-        //     // publish contract and then store information in about published contract in db
-        //     contract.new(... parameters, {from: accounts[0], data: compiled.code, gas: 4000000}, (error, value) => {
-        //         if(!error && value.address) {
-        //             Meteor.call('products.update.blockchainDetails', this.props.product, abi, value.address, this.props.keyStore._id);
-        //             Meteor.call('products.update.active', this.props.product);
-        //
-        //             browserHistory.push(`/products/${this.props.product._id}`);
-        //         }
-        //     });
-        // });
+
     }
 
     deleteProduct() {

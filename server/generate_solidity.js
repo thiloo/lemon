@@ -30,7 +30,8 @@ Meteor.methods({
                 input += `${field.title} = p${field.title};`;
             }
         });
-        const sourceCode = `pragma solidity ^0.4.4; contract SimpleProduct { ${variables} function SimpleProduct( ${identifiers} ) { ${input} } } `;
+        // const sourceCode = `pragma solidity ^0.4.4; contract SimpleProduct { ${variables} function SimpleProduct( ${identifiers} ) { ${input} } } `;
+        const sourceCode = `pragma solidity ^0.4.4; contract SimpleStorage { string storedData; function SimpleStorage(string x) { storedData = x; } function get() constant returns (string x) { return storedData; } }`;
         return sourceCode;
     }
 });

@@ -1,89 +1,68 @@
 import React, { Component } from 'react';
 
 class ProductInfo extends Component {
-    renderFields(fields) {
-        let reqInfo = {};
-        // get the main info like title to render it
-        fields.forEach(field => {
-            if (typeof field.value == 'object') {
-                reqInfo[field.title] = field.value.c[0];
-            } else {
-                reqInfo[field.title]= field.value;
-            }
-        });
+    constructor(props) {
+        super(props);
 
-        // additional Infofields
-
-        const additionalFields = fields.map(field => {
-            if(field.title != "title" && field.title != "quantity" && field.title != "description" && field.title != "units") {
-                return field;
-            } else {
-                return null;
-            }
-        });
-
-        return (
-            <div>
-                <div>
-                    <h1>{reqInfo.title}</h1>
-                    <p>{reqInfo.description}</p>
-                    <p>{reqInfo.quantity} {reqInfo.units}</p>
-                    <p>{this.props.product.address}</p>
-                </div>
-                <div>
-                    Additional Information:
-                    {this.renderAdditionalFields(additionalFields)}
-                </div>
-            </div>
-        );
+        this.state = {
+            fields: ''
+        };
     }
-
-    renderAdditionalFields(fields) {
-        const cleaned = fields.filter(field => field != null);
-        return cleaned.map(field => {
-            return (
-                <div key={field.title}>
-                    {field.value}
-                </div>
-            );
-        });
-    }
-
-    blockchainInteraction() {
-        if(this.props.product) {
-            const abi = this.props.product.abi;
-            const address= this.props.product.address;
-            const contract = web3.eth.contract(abi);
-            const instance = contract.at(address);
-
-            const constants = instance.abi.map(constant => {
-                if (constant.constant) {
-                    return constant.name;
+    
+    renderAdditionalFields() {
+        if(this.state.fields != '') {
+            const fields = this.state.fields;
+            const fieldsArray = Object.entries(fields);
+            const allFields = fieldsArray.map(field => {
+                if(field[0] != "title" && field[0]!= "quantity" && field[0] != "description" && field[0] != "units") {
+                    return field;
                 } else {
                     return null;
                 }
             });
-
-            const fields = constants.filter(constant => constant != null);
-            const values = fields.map(field => {
-                return {
-                    title: field,
-                    value: instance[field].call()
-                };
+            const cleaned = allFields.filter(field => field != null);
+            return cleaned.map(field => {
+                return (
+                    <div key={field[0]}>
+                        {field[0]} : {field[1]}
+                    </div>
+                );
             });
-
-            return this.renderFields(values);
         }
+    }
 
+    blockchainInteraction() {
+        const abi = this.props.product.abi;
+        const address= this.props.product.address;
+        const contract = web3.eth.contract(abi);
+        const instance = contract.at(address);
+        // retrieve the ipfs hash
+        const ipfsHash = instance.get();
+
+        Meteor.call('ipfs.getJson', ipfsHash, (err, fields) => {
+            return this.setState({fields: fields});
+        });
     }
 
     render() {
-
+        const { title, description, quantity, units } = this.state.fields;
         if(this.props.product) {
             return (
                 <div className="row col-md-offest-1 col-md-10 productInfoWrapper">
                     <div className="">
                         {this.blockchainInteraction()}
+                        <div>
+                            <div>
+                                <h1>{title}</h1>
+                                <p>{description}</p>
+                                <p>{quantity} {units}</p>
+                                <p>{this.props.product.address}</p>
+                            </div>
+                            <div>
+                                Additional Information:
+                                {this.renderAdditionalFields()}
+                            </div>
+                        </div>
                     </div>
                 </div>
             );
