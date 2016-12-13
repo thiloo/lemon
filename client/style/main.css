@@ -23,6 +23,16 @@ body{
     border: 1px black solid;
 }
 
+.coinInfoWrapper {
+    height: 100px;
+    border: 1px black solid;
+}
+
+.sendInfoWrapper {
+    height: 200px;
+    border: 1px black solid;
+}
+
 a:hover {
     cursor: pointer;
 }

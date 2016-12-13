@@ -41,6 +41,8 @@ class AddTemplate extends Component {
                 if(!error) {
                     Meteor.call('templates.update.abi', this.props.template, compiled);
                     browserHistory.push('/');
+                } else {
+                    console.log(error);
                 }
             });
         });

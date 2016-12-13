@@ -6,7 +6,8 @@ class SendProduct extends Component {
         super(props);
 
         this.state = {
-            sendTo: ''
+            sendTo: '',
+            quantity: ''
         };
     }
 
@@ -14,9 +15,9 @@ class SendProduct extends Component {
         this.setState({ sendTo: event.target.value });
     }
 
-    // onQuantityChange(event) {
-    //
-    // }
+    onQuantityChange(event) {
+        this.setState({ quantity: event.target.value });
+    }
 
     inputValueOnChange() {
         if(this.props.product.transaction) {
@@ -31,9 +32,9 @@ class SendProduct extends Component {
         const address= this.props.product.address;
         const contract = web3.eth.contract(abi);
         const instance = contract.at(address);
+        console.log(instance);
         web3.eth.getAccounts((error, accounts) => {
-            console.log(error, accounts, this.state.sendTo);
-            instance.changeOwner.sendTransaction(this.state.sendTo, {from: accounts[0], gas: 4000000}, (err, transfer) => console.log(err, transfer));
+            instance.sendCoin(this.state.sendTo, this.state.quantity, {from: accounts[0], gas: 4000000}, (err, transfer) => console.log(err, transfer));
         });
 
     }
@@ -41,18 +42,18 @@ class SendProduct extends Component {
     render() {
         const url = '/';
         return (
-            <div>
+            <div className="row col-md-offest-1 col-md-10 sendInfoWrapper">
                 <div>
                     <input
                         onChange={this.onAddressChange.bind(this)}
                         value={this.state.sendTo}
                         className="form-control"
                         placeholder="send to address" />
-                    {/* <input
+                    <input
                         onChange={this.onQuantityChange.bind(this)}
-                        value={this.props.product.transaction.quantity}
+                        value={this.state.quantity}
                         className="form-control"
-                        placeholder="quantity" /> */}
+                        placeholder="quantity" />
 
                 </div>
                 <div>
