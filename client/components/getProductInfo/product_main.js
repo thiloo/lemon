@@ -55,11 +55,6 @@ class ProductsMain extends Component {
                 <div className="">
                     <CoinMain instance={this.state.instance} />
                 </div>
-                <div className="col-md-10">
-                    <button
-                        onClick={this.renderSendProduct.bind(this)}
-                        className="btn btn-primary">Send Product</button>
-                </div>
                 <div>
                     {/* to send the product to another person on the bchain */}
                     <SendProduct product={this.props.product} owner={this.state.owner} />

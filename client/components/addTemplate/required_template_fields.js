@@ -41,7 +41,7 @@ class RequiredTemplateFields extends Component {
                     <input
                         onChange={this.onQuantityChange.bind(this)}
                         value={this.props.template.quantity}
-                        className="form-control" type="text" placeholder="Quantity, 1 or many products" />
+                        className="form-control" type="number" placeholder="Quantity, 1 or many products" />
                     <span className="input-group-addon">Units</span>
                     <input
                         onChange={this.onUnitChange.bind(this)}
