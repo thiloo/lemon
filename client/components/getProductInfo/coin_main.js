@@ -9,7 +9,7 @@ class CoinMain extends Component {
             balance: -1
         };
     }
-    
+
     setBalance(balance) {
         this.setState({ balance });
     }
@@ -17,22 +17,30 @@ class CoinMain extends Component {
     showBalance() {
         if(this.state.balance >= 0) {
             return (
-                <div>
-                    The Balance is: {this.state.balance}
+                <div className="col-md-8">
+                    The balance of the addres is: {this.state.balance} {this.props.product.template.units}
                 </div>
             );
         }
     }
 
     render() {
-        return(
-            <div className="row col-md-offest-1 col-md-10 coinInfoWrapper">
-                <CoinBalance
-                    setBalance={this.setBalance.bind(this)}
-                    instance={this.props.instance} />
-                {this.showBalance()}
-            </div>
-        );
+        if(this.props.product) {
+            return(
+                <div className="row col-md-5 coinWrapper">
+                    <div>
+                        <h3><small>See how many {this.props.product.template.units} somebody owns.</small></h3>
+                    </div>
+                    <CoinBalance
+                        setBalance={this.setBalance.bind(this)}
+                        instance={this.props.instance} />
+                    {this.showBalance()}
+                </div>
+            );
+        } else {
+            return null;
+        }
+
     }
 }
 

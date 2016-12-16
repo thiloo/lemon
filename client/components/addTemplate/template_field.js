@@ -34,7 +34,6 @@ class NewField extends Component {
                     <select className="form-control" onChange={this.onTypeChange.bind(this)}>
                         <option default disabled>Variable type</option>
                         <option>string</option>
-                        <option>uint</option>
                     </select>
                 </div>
                 <div className="form-group col-sm-1">

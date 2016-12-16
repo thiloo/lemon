@@ -26,3 +26,4 @@ http
 ethereum:web3
 session
 abernix:standard-minifier-js@1.2.2
+momentjs:moment@2.16.0

@@ -108,7 +108,7 @@ class Header extends Component {
         return (
             <nav className="nav navbar-default">
                 <div className="navbar-header">
-                    <Link to='/' className="navbar-brand">Lemon</Link>
+                    <Link to='/' className="navbar-brand">lemon</Link>
                 </div>
                 <ul className="nav navbar-nav">
                     <li>

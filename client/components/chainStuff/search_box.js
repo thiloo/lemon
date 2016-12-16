@@ -27,7 +27,7 @@ class SearchBox extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} className="form-inline">
+            <form onSubmit={this.handleSubmit} className="form-inline searchBox">
                 <div className="input-group col-sm-8 col-sm-offset-3">
                     <input type="text" placeholder="Search for a product, enter an address" value={this.state.value} onChange={this.handleChange} className="form-control" />
                      <span className="input-group-btn">

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 
 class SendProduct extends Component {
     constructor(props) {
@@ -40,32 +39,42 @@ class SendProduct extends Component {
     }
 
     render() {
-        const url = '/';
-        return (
-            <div className="row col-md-offest-1 col-md-10 sendInfoWrapper">
-                <div>
-                    <input
-                        onChange={this.onAddressChange.bind(this)}
-                        value={this.state.sendTo}
-                        className="form-control"
-                        placeholder="send to address" />
-                    <input
-                        onChange={this.onQuantityChange.bind(this)}
-                        value={this.state.quantity}
-                        className="form-control"
-                        placeholder="quantity" />
+        if(this.props.product) {
+            return (
+                <div className="col-md-5 sendWrapper">
+                    <h3><small>Transfer {this.props.product.template.units} to somebody else.</small></h3>
+                    <div className="form-horizontal">
+                        <div className="form-group">
+                            <div className="col-md-8">
+                                <input
+                                    onChange={this.onAddressChange.bind(this)}
+                                    value={this.state.sendTo}
+                                    className="form-control"
+                                    placeholder="send to address" />
 
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <div className="col-md-5">
+                                <input
+                                    onChange={this.onQuantityChange.bind(this)}
+                                    value={this.state.quantity}
+                                    className="form-control"
+                                    placeholder="quantity" />
+                            </div>
+                            <div className="col-md-4">
+                                <button
+                                    onClick={this.transferOwnership.bind(this)}
+                                    className="btn btn-default">Transfer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    {/* <Link to={url}> */}
-                        <button
-                            onClick={this.transferOwnership.bind(this)}
-                            className="btn btn-primary">Transfer Ownership
-                        </button>
-                    {/* </Link> */}
-                </div>
-            </div>
-        );
+            );
+        } else {
+            return null;
+        }
     }
 }
 

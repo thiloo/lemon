@@ -16,9 +16,9 @@ class ProductInfo extends Component {
             const cleaned = allFields.filter(field => field != null);
             return cleaned.map(field => {
                 return (
-                    <div key={field[0]}>
+                    <dl key={field[0]}>
                         {field[0]} : {field[1]}
-                    </div>
+                    </dl>
                 );
             });
         }
@@ -28,25 +28,30 @@ class ProductInfo extends Component {
         const { title, description, quantity, units } = this.props.fields;
         if(this.props.product) {
             return (
-                <div className="row col-md-offest-1 col-md-10 productInfoWrapper">
+                <div className="row col-md-offest-2 col-md-5">
                     <div className="">
                         <div>
                             <div>
-                                <h1>{title}</h1>
-                                <p>{description}</p>
-                                <p>{quantity} {units}</p>
-                                <p>Address: {this.props.product.address}</p>
-                                <p>Producer: {this.props.producer}</p>
-                            </div>
-                            <div>
-                                Additional Information:
-                                {this.renderAdditionalFields()}
-                            </div>
+                                <h1 className="">{title}</h1>
+                                <h3 className=""><small>{description}</small></h3>
+                                <div>
+                                    <dl>
+                                        <dt>Amount</dt>
+                                        <dl>{quantity} {units}</dl>
+                                        <dt>Contract Address</dt>
+                                        <dl>{this.props.product.address}</dl>
+                                        <dt>Producer Address</dt>
+                                        <dl>{this.props.producer}</dl>
+                                        <dt>Additional Information</dt>
+                                        {this.renderAdditionalFields()}
+                                    </dl>
+                                </div>
                             <div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             );
         } else {
             return <div>Loading...</div>;

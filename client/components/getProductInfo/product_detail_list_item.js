@@ -8,9 +8,9 @@ const ProductDetail = ({ product }) => {
     return (
         <Link to={url}>
             <div className="thumbnail">
-                <div className="caption">
+                <div className="caption text-center">
                     <h3>{title}</h3>
-                    <ul className="list-group">
+                    <ul className="list-group text-left">
                         <li className="list-group-item">Details: {description}</li>
                         <li className="list-group-item">{quantity} {units}</li>
                     </ul>

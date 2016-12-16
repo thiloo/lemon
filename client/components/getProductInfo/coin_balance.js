@@ -21,13 +21,18 @@ class CoinBalance extends Component {
     render() {
         if(this.props.instance != '') {
             return (
-                <div>
-                    <div>
-                        <input
-                            value={this.state.balanceOf}
-                            onChange={this.onBalanceOfInputChange.bind(this)}
-                            placeholder="get balance of" />
-                        <button onClick={this.checkBalance.bind(this)}>Check Balance</button>
+                <div className="form-horizontal col-md-10">
+                    <div className="form-group">
+                        <div className="col-md-7">
+                            <input
+                                className="form-control"
+                                value={this.state.balanceOf}
+                                onChange={this.onBalanceOfInputChange.bind(this)}
+                                placeholder="get balance of - address" />
+                        </div>
+                        <div className="col-md-4">
+                            <button onClick={this.checkBalance.bind(this)} className="btn btn-default">Check</button>
+                        </div>
                     </div>
                 </div>
             );

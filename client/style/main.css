@@ -6,7 +6,7 @@ body{
 .product-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .thumbnail {
@@ -19,7 +19,7 @@ body{
 }
 
 .productInfoWrapper {
-    height: 300px;
+    min-height: 300px;
     border: 1px black solid;
 }
 
@@ -28,9 +28,8 @@ body{
     border: 1px black solid;
 }
 
-.sendInfoWrapper {
-    height: 200px;
-    border: 1px black solid;
+.sendWrapper {
+    margin-top: 80px;
 }
 
 a:hover {
@@ -58,4 +57,12 @@ a:hover {
 
 .removeField {
     color: darkred;
+}
+
+.searchBox {
+    margin: 20px;
+}
+
+.home-text {
+    padding-left: 0px;
 }

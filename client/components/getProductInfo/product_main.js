@@ -47,17 +47,15 @@ class ProductsMain extends Component {
         this.blockchainInteraction();
         return (
             <div className="container">
-                <ProductInfo
-                    fields={this.state.fields}
-                    producer={this.state.producer}
-                    instance={this.state.instance}
-                    product={this.props.product} />
-                <div className="">
-                    <CoinMain instance={this.state.instance} />
-                </div>
-                <div>
-                    {/* to send the product to another person on the bchain */}
+                <div className="row">
+                    <ProductInfo
+                        fields={this.state.fields}
+                        producer={this.state.producer}
+                        instance={this.state.instance}
+                        product={this.props.product} />
+
                     <SendProduct product={this.props.product} owner={this.state.owner} />
+                    <CoinMain instance={this.state.instance} product={this.props.product}/>
                 </div>
             </div>
         );
