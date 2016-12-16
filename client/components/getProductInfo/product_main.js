@@ -35,7 +35,7 @@ class ProductsMain extends Component {
             // retrieve the ipfs hash
             const ipfsHash = instance.get();
             const producer = instance.getProducer();
-
+            console.log(ipfsHash);
             Meteor.call('ipfs.getJson', ipfsHash, (err, fields) => {
                 return this.setState({ fields, producer, instance });
             });
